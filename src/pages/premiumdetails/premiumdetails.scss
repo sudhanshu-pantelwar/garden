@@ -1,0 +1,69 @@
+page-readmore {
+    .mainImage {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        z-index: -1;
+        clip: rect(0px,100vw,45vh,0px);
+    }
+
+    ion-header {
+        .toolbar {
+            position: absolute;
+
+            .toolbar-background {
+            background: transparent;
+            background-color:rgba(0, 0, 0, 0.2);
+            }
+            .toolbar-title {
+            color: white;
+            }
+            
+        }
+        }
+    
+    .bar-button-default-ios, .bar-button-default.bar-button-ios-default, .bar-button-clear-ios-default {
+        color: white;
+        background-color: transparent;
+    }
+
+    .header-ios .toolbar-background-ios, .footer-ios .toolbar-background-ios {
+        border-style: none !important;
+        // border-color: rgba(0, 0, 0, 0.3);
+    }
+    .item-md ion-avatar ion-img, .item-md ion-avatar img {
+        width: 50px;
+        height:50px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+    .bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
+            color: white;
+            background-color: transparent;
+        }
+    .btn {
+        background-color: Transparent;
+        background-repeat:no-repeat;
+        border: none;
+        cursor:pointer;
+        overflow: hidden;
+        outline:none;
+        color: white;
+        font-size: 25px;
+    }
+
+    .heading{
+        position: relative;
+        margin-top: 13vh;
+        margin-left: 10px;
+        margin-right: 10px;
+        color: white;
+        font-size: 5vh;
+    }
+
+    .description{
+        position: relative;
+        margin-top:11vh;
+        font-size: 3vh;
+    }
+}

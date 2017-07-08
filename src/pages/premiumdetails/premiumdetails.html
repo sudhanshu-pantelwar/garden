@@ -1,0 +1,32 @@
+<!--
+  Generated template for the Readmore page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!--<img src="http://www.wallpaperawesome.com/wallpapers-awesome/wallpapers-samsung-galaxy-note-5-awesome/wallpaper-samsung-galaxy-note-5-ultra-hd-2160-3840-5.jpg" alt="Floating Flower">-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding no-bounce overflow-scroll="false">
+  <img src={{imageURL}} class="mainImage"/>
+  <!--<button class="btn" (click)="pop()"><strong>< Back</strong></button>-->
+  <h4 class="heading">{{title}}</h4>
+  <div [innerHTML]="content" class="description"></div>
+  <ion-list *ngFor="let link of links">
+  <ion-item (click)="openLink(link.fields.link)">
+    <ion-avatar item-start>
+      <img src='https:{{link.fields.image.fields.file.url}}'/>
+    </ion-avatar>
+    <h2>{{link.fields.title}}</h2>
+    <p>{{link.fields.description}}</p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

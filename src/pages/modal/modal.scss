@@ -1,0 +1,100 @@
+page-modal {
+    img {
+        /* Set rules to fill background */
+        min-height: 100%;
+        min-width: 1024px;
+            
+        /* Set up proportionate scaling */
+        width: 100%;
+        height: auto;
+        z-index: -1;
+        /* Set up positioning */
+        position: fixed;
+        top: 0;
+        left: 0;
+        }
+
+        @media screen and (max-width: 1024px) { /* Specific to this particular image */
+        img {
+            left: 50%;
+            margin-left: -512px;   /* 50% */
+        }
+        }
+
+    ion-header {
+        .toolbar {
+            position: absolute;
+
+            .toolbar-background {
+            background: transparent;
+            background-color:rgba(0, 0, 0, 0.2);
+            }
+            .toolbar-title {
+            color: white;
+            }
+            
+        }
+        }
+    
+    .bar-button-default-ios, .bar-button-default.bar-button-ios-default, .bar-button-clear-ios-default {
+        color: white;
+        background-color: transparent;
+    }
+
+    .header-ios .toolbar-background-ios, .footer-ios .toolbar-background-ios {
+        border-style: none !important;
+        // border-color: rgba(0, 0, 0, 0.3);
+    }
+    .item-md ion-avatar ion-img, .item-md ion-avatar img {
+        width: 50px;
+        height:50px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+    .bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
+            color: white;
+            background-color: transparent;
+        }
+    .btn {
+        background-color: Transparent;
+        background-repeat:no-repeat;
+        border: none;
+        cursor:pointer;
+        overflow: hidden;
+        outline:none;
+        color: white;
+        font-size: 25px;
+    }
+
+    .heading{
+        position: relative;
+        padding: 5vw;
+        margin-top: 13vh;
+        text-align:center;
+        // margin-left: 10px;
+        // margin-right: 10px;
+        color: white;
+        align-content: center;
+        font-size: 5vh;
+    }
+
+    .price{
+        position: relative;
+        padding: 5vw;
+        text-align:center;
+        // margin-top: 13vh;
+        // margin-left: 50px;
+        // margin-right: 10px;
+        color: white;
+        // font-size: 2vh;
+    }
+
+    .description{
+        position: relative;
+        padding: 15px;
+        
+        // margin-top:11vh;
+        font-size: 5vw;
+        color: white;
+    }
+}

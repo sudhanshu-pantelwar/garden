@@ -1,0 +1,26 @@
+page-premiumcontent {
+    // ion-header {
+    //     .toolbar {
+    //         position: absolute;
+
+    //         .toolbar-background {
+    //         background: transparent;
+    //         background-color:rgba(0, 0, 0, 0.2);
+    //         }
+    //         .toolbar-title {
+    //         color: white;
+    //         }
+    //     }
+    //     }
+    ion-content{
+        position: fixed;
+        ion-list{
+            ion-item{
+                ion-avatar img{
+                    width: 70px !important;
+                    height: 70px !important;
+                }
+            }
+        }
+    }
+}

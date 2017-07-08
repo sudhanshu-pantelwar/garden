@@ -1,0 +1,122 @@
+page-first {
+    ion-header {
+        .toolbar {
+            position: absolute;
+
+            .toolbar-background {
+            background: transparent;
+            background-color:rgba(0, 0, 0, 0.2);
+            }
+            .toolbar-title {
+            color: white;
+            }
+            
+        }
+        }
+    
+    .bar-button-default-ios, .bar-button-default.bar-button-ios-default, .bar-button-clear-ios-default {
+        color: white;
+        background-color: transparent;
+    }
+    .bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
+        color: white;
+        background-color: transparent;
+    }   
+    // img {
+    // position: fixed;
+    // left: 0px;
+    // top: 0px;
+    // z-index: -1;
+    // min-height: 100%;
+    // min-width: 100%;
+    // background-position: center;
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    // }
+    img {
+        /* Set rules to fill background */
+        min-height: 100%;
+        min-width: 1024px;
+            
+        /* Set up proportionate scaling */
+        width: 100%;
+        height: auto;
+        z-index: -1;
+        /* Set up positioning */
+        position: fixed;
+        top: 0;
+        left: 0;
+        }
+
+        @media screen and (max-width: 1024px) { /* Specific to this particular image */
+        img {
+            left: 50%;
+            margin-left: -512px;   /* 50% */
+        }
+        }
+
+    .heading{
+        margin-top: 30vh;
+        margin-left: 10px;
+        margin-right: 10px;
+        color: white;
+        font-size: 6vh;
+    }
+
+   .header-ios .toolbar-background-ios, .footer-ios .toolbar-background-ios {
+        border-style: none !important;
+        // border-color: rgba(0, 0, 0, 0.3);
+    }
+    
+    .btn {
+        margin-top: 5vh;
+        margin-left: 60vw;
+        -webkit-border-radius: 8;
+        -moz-border-radius: 8;
+        border-radius: 8px;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 14px;
+        background: #3498db;
+        padding: 12px 20px 12px 20px;
+        text-decoration: none;
+    }
+    .container {
+        margin-left: 20px;
+        margin-top: 20px;
+        display: inline-block;
+        cursor: pointer;
+        width: 27px;
+    }
+
+    .bar1, .bar2, .bar3 {
+        
+        width: 35px;
+        height: 5px;
+        background-color: white;
+        margin: 6px 0;
+        transition: 0.4s;
+    }
+
+    .change .bar1 {
+        -webkit-transform: rotate(-45deg) translate(-9px, 6px) ;
+        transform: rotate(-45deg) translate(-9px, 6px) ;
+    }
+    .change .bar2 {opacity: 0;}
+    .change .bar3 {
+        -webkit-transform: rotate(45deg) translate(-8px, -8px) ;
+        transform: rotate(45deg) translate(-8px, -8px) ;
+    }
+
+    .content{
+        padding-left: 10px;
+        padding-right: 10px;
+        color: white;
+        font-size: 3vh;
+        // height: 5px; 
+        // text-overflow: ellipsis;
+        // overflow:hidden; 
+        // white-space:nowrap; 
+    }
+    
+}
