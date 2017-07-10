@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { PremiumProvider } from '../../providers/premium/premium';
+import { InAppPurchase } from '@ionic-native/in-app-purchase';
+import {markdown} from 'markdown';
 
+declare var showdown;
 /**
  * Generated class for the ModalPage page.
  *
@@ -13,12 +17,64 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'modal.html',
 })
 export class ModalPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  title: any;
+  price: any;
+  buttonText: any;
+  buttonColour: any;
+  imageURL: any;
+  content: any;
+  itemPurchased: any;
+  constructor(public viewCtrl: ViewController, public iap:InAppPurchase, public premiumProvider: PremiumProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ModalPage');
-  }
+    this.itemPurchased = localStorage.getItem('itemPurchased');
+    console.log(this.itemPurchased);
+      this.premiumProvider.premiumData().then((val) => { 
+        // console.log("bro", val.backgroundImage.fields.file.url);
+        this.title = val.title;
+        this.price = val.price;
+        let markContent = val.details;
+        this.buttonText = val.buttonText;
+        this.buttonColour = val.buttonColour;
+        this.imageURL = 'https:'+val.backgroundImage.fields.file.url;
+        var converter = new showdown.Converter();
+        let htmlContent  = converter.makeHtml(markContent);
+        var postProcess = function(text) {
+            return text.replace(/<img\s+[^>]*src="([^"]*)"[^>]*>/g, '<img src='+'"https:'+'$1">');
+        }
+
+        this.content = postProcess(htmlContent);
+        // console.log(this.content);
+        });
+      
+      this.iap
+          .getProducts(['dailygardening.yearly'])
+          .then((products) => {
+            // alert(JSON.stringify(products));
+            console.log(JSON.stringify(products));
+              //  [{ productId: 'com.yourapp.prod1', 'title': '...', description: '...', price: '...' }, ...]
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+    }
+      
+      subscribeProduct(){
+        localStorage.setItem('itemPurchased', 'yes');
+        this.viewCtrl.dismiss();
+        // this.iap
+        //     .subscribe('dailygardening.yearly')
+        //     .then((data)=> {
+        //       localStorage.setItem('itemPurchased', 'yes');
+        //       alert(JSON.stringify(data));
+        //       console.log("productBuy",JSON.stringify(data));
+        //       localStorage.setItem('itemPurchased', 'yes');
+        //       this.viewCtrl.dismiss();
+        //     })
+        //     .catch((err)=> {
+        //       console.log("error", JSON.stringify(err));
+        //     });
+      }
 
 }

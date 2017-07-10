@@ -14,10 +14,11 @@ import { ContentfulProvider } from '../providers/contentful/contentful';
 import { HttpModule } from '@angular/http';
 import { PremiumProvider } from '../providers/premium/premium';
 import { MiscProvider } from '../providers/misc/misc';
-
+import { ModalPage } from '../pages/modal/modal';
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    ModalPage
   ],
   imports: [
     HttpModule,
@@ -26,7 +27,8 @@ import { MiscProvider } from '../providers/misc/misc';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    ModalPage
   ],
   providers: [
     InAppPurchase,

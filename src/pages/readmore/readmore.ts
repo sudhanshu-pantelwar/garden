@@ -63,4 +63,7 @@ export class Readmore {
     const browser = this.iab.create(link);
   }
 
+  test(){
+    this.navCtrl.push('PremiumcontentPage');
+  }
 }

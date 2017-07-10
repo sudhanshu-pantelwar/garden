@@ -19,7 +19,7 @@
   <!--<button class="btn" (click)="pop()"><strong>< Back</strong></button>-->
   <h4 class="heading">{{title}}</h4>
   <div [innerHTML]="content" class="description"></div>
-  <ion-list *ngFor="let link of links">
+  <ion-list *ngFor="let link of links" class="products">
   <ion-item (click)="openLink(link.fields.link)">
     <ion-avatar item-start>
       <img src='https:{{link.fields.image.fields.file.url}}'/>

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ModalController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ContentfulProvider } from '../../providers/contentful/contentful';
 import { MiscProvider } from '../../providers/misc/misc';
+import { ModalPage } from '../modal/modal';
 /**
  * Generated class for the PremiumcontentPage page.
  *
@@ -11,14 +12,26 @@ import { MiscProvider } from '../../providers/misc/misc';
 @IonicPage()
 @Component({
   selector: 'page-premiumcontent',
-  templateUrl: 'premiumcontent.html',
+  templateUrl: 'premiumcontent.html'
 })
 export class PremiumcontentPage {
   title: any;
   imageURL: any;
   premiumData: any;
   dataArray: any=[];
-  constructor(public misc: MiscProvider, public contentfulProvider: ContentfulProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public modalCtrl:ModalController, public misc: MiscProvider, public contentfulProvider: ContentfulProvider, public navCtrl: NavController, public navParams: NavParams) {
+  }
+
+  presentModal() {
+    let modal = this.modalCtrl.create(ModalPage);
+    modal.present();
+  }
+
+  ionViewCanEnter(){
+    let itemPurchased = localStorage.getItem("itemPurchased");
+    if(itemPurchased!="yes"){
+      this.presentModal();
+    }
   }
 
   ionViewDidLoad() {
@@ -48,7 +61,7 @@ export class PremiumcontentPage {
 
   details(data){
     // console.log(data);
-    this.navCtrl.push('PremiumdetailsPage', { data });
+    this.navCtrl.push('PremiumdetailsPage', { 'data': data });
   }
 
 }
