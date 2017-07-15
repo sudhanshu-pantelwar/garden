@@ -52,7 +52,6 @@ export class Readmore {
         alert(err);
         this.misc.closeLoading();
       });
-    
   }
 
   pop(){

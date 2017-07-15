@@ -4,7 +4,7 @@ import { PremiumcontentPage } from './premiumcontent';
 
 @NgModule({
   declarations: [
-    PremiumcontentPage,
+    PremiumcontentPage
   ],
   imports: [
     IonicPageModule.forChild(PremiumcontentPage),

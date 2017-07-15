@@ -22,7 +22,14 @@ export class MyApp {
 
       //     console.log("time",time.slice(0,7));
       // console.log("time2", time);
-      
+      this.localNotifications.schedule({
+            id:1,
+            title: "Garden",
+            text: "New Content Available",
+            every: 'minute'
+            // icon: 'file://icon.png',
+            // smallIcon: 'http://www.concordmonitor.com/App_Themes/nne-universal-structure/socialicons/youtubeicon-color.png'
+        });
       this.time = localStorage.getItem('time');
       // alert("time"+this.time);
         if(this.time == 'NaN' || this.time == '' || this.time == 'undefined' || this.time == null || this.time=='null'){
@@ -48,12 +55,12 @@ export class MyApp {
         
         contentfulProvider.getTitle().then((val) => { 
         
-        
+        var me = val;
         this.localNotifications.schedule({
             id:1,
-            title: val.title,
-            text: val.content,
-            every: 'day',
+            title: me.title,
+            text: me.content,
+            every: 'day'
             // icon: 'file://icon.png',
             // smallIcon: 'http://www.concordmonitor.com/App_Themes/nne-universal-structure/socialicons/youtubeicon-color.png'
         });
@@ -64,6 +71,18 @@ export class MyApp {
         // console.log(this.imageURL);
         });
       }
+
+      this.localNotifications.update({
+        
+      })
+
+      this.localNotifications.on("trigger", nofication => {
+        var dayCount = localStorage.getItem('daycount');
+        let dayCount1 = parseInt(dayCount);
+        dayCount1 = dayCount1 + 1;
+        let dayCount2 = dayCount1.toString();
+        localStorage.setItem('daycount', dayCount2);
+      })
       
       let adCount = localStorage.getItem('adcount');
       console.log("addCount", adCount);

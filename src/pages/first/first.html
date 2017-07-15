@@ -29,6 +29,7 @@
   </div>-->
   <img src={{imageURL}} alt="Floating Flower"/>
   <h1 class="heading">{{title}}</h1>
-  <p class="content"><strong>{{content}} ...</strong></p>
+  <div [innerHTML]="content" class="content" padding><p>...</p></div>
+  <!--<p class="content"><strong>{{content}} ...</strong></p>-->
   <button class="btn" (click)="readMore()">Read More</button>
 </ion-content>

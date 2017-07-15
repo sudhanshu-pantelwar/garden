@@ -4,6 +4,9 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free';
 import { ContentfulProvider } from '../../providers/contentful/contentful';
 import { MiscProvider } from '../../providers/misc/misc';
+import {markdown} from 'markdown';
+
+declare var showdown;
 /**
  * Generated class for the FirstPage page.
  *
@@ -25,16 +28,21 @@ export class FirstPage {
   constructor(public misc: MiscProvider, public contentfulProvider: ContentfulProvider, private admobFree: AdMobFree, private localNotifications: LocalNotifications, public navCtrl: NavController) {
   }
 
-  
-
   ionViewDidLoad(){
     console.log(this.adCount);
     this.misc.startLoading();
     this.contentfulProvider.getTitle().then((val) => { 
       this.title = val.title;
-      this.content = val.content.slice(0,140);
+      var markContent = val.content.slice(0,140);
       this.imageURL = 'https:'+ val.image.fields.file.url;
       this.misc.closeLoading();
+      var converter = new showdown.Converter();
+      let htmlContent  = converter.makeHtml(markContent);
+      var postProcess = function(text) {
+          return text.replace(/<img\s+[^>]*src="([^"]*)"[^>]*>/g, '<img src='+'"https:'+'$1">');
+      }
+
+      this.content = postProcess(htmlContent);
       // console.log(this.imageURL);
       }).catch((err) => {
         alert(err);

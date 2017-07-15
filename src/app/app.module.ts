@@ -15,12 +15,16 @@ import { HttpModule } from '@angular/http';
 import { PremiumProvider } from '../providers/premium/premium';
 import { MiscProvider } from '../providers/misc/misc';
 import { ModalPage } from '../pages/modal/modal';
+import { ParallaxHeaderDirective } from '../directives/parallax-header/parallax-header';
+import {ElasticHeaderDirectiveModule} from '../directives/elastic-header/elastic-header.module';
+
 @NgModule({
   declarations: [
     MyApp,
     ModalPage
   ],
   imports: [
+    ElasticHeaderDirectiveModule,
     HttpModule,
     BrowserModule,
     IonicModule.forRoot(MyApp)
