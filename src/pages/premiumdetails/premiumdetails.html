@@ -15,27 +15,30 @@
 
 
 <ion-content elastic-header>
-  <div  class="mainImage" [ngStyle]="{background: 'url(' + imageURL + ')'}"><h4 class="heading">{{title}}</h4></div>
-  <!--<div >
-    <img class="mainImage" src={{imageURL}} />
-  </div>-->
+ <div  class="mainImage" [ngStyle]="{background: 'url(' + imageURL + ')'}">
+   <h4 class="heading">{{title}}</h4>
+ </div>
 
-  <!--<button class="btn" (click)="pop()"><strong>< Back</strong></button>-->
-    <div class="main-content">
-    </div>
-    <div [innerHTML]="content" class="description" padding></div>
+ <!--<div >
+   <img class="mainImage" src={{imageURL}} />
+ </div>-->
 
-    <ion-card>
-    <ion-list *ngFor="let link of links">
-    <ion-item (click)="openLink(link.fields.link)">
-      <ion-avatar item-start>
-        <img src='https:{{link.fields.image.fields.file.url}}'/>
-      </ion-avatar>
-      <h2>{{link.fields.title}}</h2>
-      <p>{{link.fields.description}}</p>
-      </ion-item>
-    </ion-list>
-    </ion-card>
-    
-  
+ <!--<button class="btn" (click)="pop()"><strong>< Back</strong></button>-->
+ <div class="description" >
+   <div [innerHTML]="content" padding>
+   </div>
+
+   <ion-card class="products">
+     <ion-list *ngFor="let link of links">
+     <ion-item (click)="openLink(link.fields.link)">
+       <ion-avatar item-start>
+         <img src='https:{{link.fields.image.fields.file.url}}'/>
+       </ion-avatar>
+       <h2>{{link.fields.title}}</h2>
+       <p>{{link.fields.description}}</p>
+     </ion-item>
+     </ion-list>
+   </ion-card>
+ </div>  
+ 
 </ion-content>

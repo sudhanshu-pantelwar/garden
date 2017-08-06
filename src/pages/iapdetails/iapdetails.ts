@@ -5,12 +5,7 @@ import { InAppPurchase } from '@ionic-native/in-app-purchase';
 import {markdown} from 'markdown';
 
 declare var showdown;
-/**
- * Generated class for the IapdetailsPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
 @IonicPage({
   // name: 'iapdetials'
 })
@@ -30,10 +25,12 @@ export class IapdetailsPage {
   }
 
   ionViewDidLoad() {
-    this.itemPurchased = localStorage.getItem('itemPurchased');
-    console.log(this.itemPurchased);
-    if(this.itemPurchased == null){
-      this.premiumProvider.premiumData().then((val) => { 
+    let val: any;
+    val = this.navParams.get('content');
+    // this.itemPurchased = localStorage.getItem('itemPurchased');
+    // console.log(this.itemPurchased);
+    // if(this.itemPurchased == null){
+      // this.premiumProvider.premiumData().then((val) => { 
         // console.log("bro", val.backgroundImage.fields.file.url);
         this.title = val.title;
         this.price = val.price;
@@ -48,43 +45,24 @@ export class IapdetailsPage {
         }
 
         this.content = postProcess(htmlContent);
-        // console.log(this.content);
-        });
-    }
-    else{
-
-    }
+        // });
       
-      this.iap
+      
+  }
+
+subscribeProduct(){
+    this.navCtrl.push('PremiumcontentPage');
+    this.iap
           .getProducts(['dailygardening.yearly'])
           .then((products) => {
-            // alert(JSON.stringify(products));
             console.log(JSON.stringify(products));
               //  [{ productId: 'com.yourapp.prod1', 'title': '...', description: '...', price: '...' }, ...]
           })
           .catch((err) => {
             console.log(err);
           });
-  }
-
-subscribeProduct(){
-    this.navCtrl.push('PremiumcontentPage');
     localStorage.setItem('itemPurchased', 'yes');
-    // this.iap
-    //     .subscribe('dailygardening.yearly')
-    //     .then((data)=> {
-    //       localStorage.setItem('itemPurchased', 'yes');
-    //       alert(JSON.stringify(data));
-    //       console.log("productBuy",JSON.stringify(data));
-    //       this.navCtrl.push('PremimumcontentPage');
-    //     })
-    //     .catch((err)=> {
-    //       console.log("error", JSON.stringify(err));
-    //     });
   }
 
-accessPremiumContent(){
-  this.navCtrl.push('PremiumcontentPage');
-}
 
 }

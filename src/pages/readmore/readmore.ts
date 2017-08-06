@@ -3,16 +3,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { InAppPurchase } from '@ionic-native/in-app-purchase';
 import { ContentfulProvider } from '../../providers/contentful/contentful';
-import {markdown} from 'markdown';
+import { markdown } from 'markdown';
 import { MiscProvider } from '../../providers/misc/misc';
 
 declare var showdown;
-/**
- * Generated class for the Readmore page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
 @IonicPage()
 @Component({
   selector: 'page-readmore',
@@ -33,7 +28,9 @@ export class Readmore {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Readmore');
-    this.contentfulProvider.getTitle().then((val) => { 
+    let val: any;
+    val = this.navParams.get('content');
+    // this.contentfulProvider.getTitle().then((val) => { 
       this.misc.closeLoading();
       this.title = val.title;
       let markContent = val.content;
@@ -47,11 +44,10 @@ export class Readmore {
       }
 
       this.content = postProcess(htmlContent);
-      // console.log(this.content);
-      }).catch((err) => {
-        alert(err);
-        this.misc.closeLoading();
-      });
+      // }).catch((err) => {
+      //   alert(err);
+      //   this.misc.closeLoading();
+      // });
   }
 
   pop(){

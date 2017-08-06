@@ -15,43 +15,23 @@
 
 
 <ion-content elastic-header>
-  <div  class="mainImage" [ngStyle]="{background: 'url(' + imageURL + ')'}"><h4 class="heading">{{title}}</h4></div>
-  <!--<div >
-    <img class="mainImage" src={{imageURL}} />
-  </div>-->
-
-  <!--<button class="btn" (click)="pop()"><strong>< Back</strong></button>-->
-    <div class="main-content">
-    </div>
-    <div [innerHTML]="content" class="description" padding></div>
-
-    <ion-card>
-    <ion-list *ngFor="let link of links">
-    <ion-item (click)="openLink(link.fields.link)">
-      <ion-avatar item-start>
-        <img src='https:{{link.fields.image.fields.file.url}}'/>
-      </ion-avatar>
-      <h2>{{link.fields.title}}</h2>
-      <p>{{link.fields.description}}</p>
-      </ion-item>
-    </ion-list>
-    </ion-card>
-    
-  
+ <div class="mainImage" [ngStyle]="{background: 'url(' + imageURL + ')'}">
+   <h4 class="heading">{{title}}</h4>
+ </div>
+ <div class="description" >
+   <div [innerHTML]="content" padding>
+   </div>
+   <ion-card class="products">
+     <ion-list *ngFor="let link of links">
+     <ion-item (click)="openLink(link.fields.link)">
+       <ion-avatar item-start>
+         <img src='https:{{link.fields.image.fields.file.url}}'/>
+       </ion-avatar>
+       <h2>{{link.fields.title}}</h2>
+       <p>{{link.fields.description}}</p>
+     </ion-item>
+     </ion-list>
+   </ion-card>
+ </div>  
+ 
 </ion-content>
-
-<!--<ion-content elastic-header>
- 
-  <div class="background-image"></div>
- 
-  <div class="main-content">
- 
-        <h2>Parallax Header</h2>
- 
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
- 
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
- 
-  </div>
- 
-</ion-content>-->

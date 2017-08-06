@@ -43,6 +43,25 @@ export class ContentfulProvider {
     // console.log(ContentfulProvider.title);
   }
 
+  getNotificationContent(day){
+    return this.client.getEntries()
+    .then(entries => {
+      // log the title for all the entries that have it
+      entries.items.forEach(function (entry) {
+        
+        // alert("dayField "+dayField);
+        console.log(entry);
+        if(entry.fields.day == day){
+          console.log(entry);
+          ContentfulProvider.data = entry.fields;
+          console.log(entry.fields.title);
+        }
+      })
+      return ContentfulProvider.data;
+    })
+    // console.log(ContentfulProvider.title);
+  }
+
   premimumContent(){
     ContentfulProvider.premiumArray = [];
     var promise = new Promise((resolve, reject) => {

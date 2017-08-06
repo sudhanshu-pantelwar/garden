@@ -4,16 +4,14 @@ page-first {
             position: absolute;
 
             .toolbar-background {
-            background: transparent;
-            background-color:rgba(0, 0, 0, 0.2);
+                background: transparent;
+                background-color:rgba(0, 0, 0, 0.2);
             }
             .toolbar-title {
-            color: white;
+                color: white;
             }
-            
+         }
         }
-        }
-    
     .bar-button-default-ios, .bar-button-default.bar-button-ios-default, .bar-button-clear-ios-default {
         color: white;
         background-color: transparent;
@@ -21,18 +19,8 @@ page-first {
     .bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
         color: white;
         background-color: transparent;
-    }   
-    // img {
-    // position: fixed;
-    // left: 0px;
-    // top: 0px;
-    // z-index: -1;
-    // min-height: 100%;
-    // min-width: 100%;
-    // background-position: center;
-    // background-repeat: no-repeat;
-    // background-size: cover;
-    // }
+    }  
+
     img {
         /* Set rules to fill background */
         min-height: 100%;
@@ -113,10 +101,6 @@ page-first {
         padding-right: 10px;
         color: white;
         font-size: 3vh;
-        // height: 5px; 
-        // text-overflow: ellipsis;
-        // overflow:hidden; 
-        // white-space:nowrap; 
     }
     
 }

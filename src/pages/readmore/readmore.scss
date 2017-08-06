@@ -4,6 +4,8 @@ page-readmore {
         height: 40vh;
         left: 0px;
         top: 0px;
+        margin-top: -20px;
+        
     }
 
     // img {
@@ -69,24 +71,27 @@ page-readmore {
 
     .main-content{
         // margin-top: 60vh;
-        transform: translateZ(0);
+        //transform: translateZ(0);
         // position: relative;
+        //position: absolute;
     }
 
     
 
     .description{
         // position: relative;
-        // position: absolute;
+        position: absolute;
         // top: 50vh;
         font-size: 3vh;
-        // position: absolute;
+        background-color: white;
+       
     }
 
     .products{
-        // position: fixed;
-        // position: relative;
-        top: 18vh;
+        //position: fixed;
+        //position:static;
+        //top: 38vh;
+        //background-color: white;
     }
 
      .item-md ion-avatar ion-img, .item-md ion-avatar img {

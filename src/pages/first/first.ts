@@ -4,7 +4,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free';
 import { ContentfulProvider } from '../../providers/contentful/contentful';
 import { MiscProvider } from '../../providers/misc/misc';
-import {markdown} from 'markdown';
+import { markdown } from 'markdown';
 
 declare var showdown;
 /**
@@ -25,6 +25,7 @@ export class FirstPage {
   content: any;
   imageURL: any;
   adCount: any;
+  pushContent: any;
   constructor(public misc: MiscProvider, public contentfulProvider: ContentfulProvider, private admobFree: AdMobFree, private localNotifications: LocalNotifications, public navCtrl: NavController) {
   }
 
@@ -32,6 +33,7 @@ export class FirstPage {
     console.log(this.adCount);
     this.misc.startLoading();
     this.contentfulProvider.getTitle().then((val) => { 
+      this.pushContent = val;
       this.title = val.title;
       var markContent = val.content.slice(0,140);
       this.imageURL = 'https:'+ val.image.fields.file.url;
@@ -96,9 +98,10 @@ export class FirstPage {
       //     .catch(e => console.log(e));
       });
   }
+
   
   readMore(){
-    this.navCtrl.push('Readmore');
+    this.navCtrl.push('Readmore', {'content': this.pushContent});
     this.misc.startLoading();
   }
 }

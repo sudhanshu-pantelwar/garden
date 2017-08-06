@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ModalController, IonicPage, NavController, NavParams, Platform, IonicApp } from 'ionic-angular';
 import { ContentfulProvider } from '../../providers/contentful/contentful';
 import { MiscProvider } from '../../providers/misc/misc';
 import { ModalPage } from '../modal/modal';
@@ -19,12 +19,29 @@ export class PremiumcontentPage {
   imageURL: any;
   premiumData: any;
   dataArray: any=[];
-  constructor(public modalCtrl:ModalController, public misc: MiscProvider, public contentfulProvider: ContentfulProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(platform: Platform, public ionicApp: IonicApp, public modalCtrl:ModalController, public misc: MiscProvider, public contentfulProvider: ContentfulProvider, public navCtrl: NavController, public navParams: NavParams) {
+     platform.registerBackButtonAction(() => {
+     let activeView = this.ionicApp._modalPortal.getActive();
+      if (activeView) {
+						activeView.dismiss();
+            activeView.onWillDismiss(() => { 
+              this.navCtrl.pop();
+          });
+					}
+          else{
+            this.navCtrl.pop();
+          }
+      });
   }
 
   presentModal() {
-    let modal = this.modalCtrl.create(ModalPage);
+    let modal = this.modalCtrl.create(ModalPage, {data: []});
     modal.present();
+    // Getting data from the modal:
+    modal.onDidDismiss(data => {
+        console.log('MODAL DATA', data.data);
+        this.dataArray = data.data;
+    });
   }
 
   ionViewCanEnter(){
@@ -32,16 +49,13 @@ export class PremiumcontentPage {
     if(itemPurchased!="yes"){
       this.presentModal();
     }
-  }
-
-  ionViewDidLoad() {
-    this.dataArray = [];
-    this.misc.startLoading();
-    this.contentfulProvider.premimumContent().then((val) => { 
+    else{
+      this.misc.startLoading();
+        this.contentfulProvider.premimumContent().then((val) => { 
       // this.title = val.title;
       // this.imageURL = 'https:'+ val.image.fields.file.url;
       // console.log(this.imageURL);
-        this.misc.closeLoading();
+        
         this.premiumData = val;
         for(let i=0;i<this.premiumData.length;i++){
           let title = this.premiumData[i].title;
@@ -52,11 +66,19 @@ export class PremiumcontentPage {
             'image': image
           })
         }
+          // this.data = this.dataArray;
+          // console.log("modalData",this.data);
+          // this.viewCtrl.dismiss({data: this.data});
+          this.misc.closeLoading();
         console.log(this.premiumData);
       }).catch((err) => {
         alert(err);
         this.misc.closeLoading();
       });
+    }
+  }
+
+  ionViewDidLoad() {
   }
 
   details(data){

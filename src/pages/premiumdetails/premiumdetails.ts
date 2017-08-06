@@ -8,12 +8,6 @@ import { MiscProvider } from '../../providers/misc/misc';
 
 declare var showdown;
 
-/**
- * Generated class for the PremiumdetailsPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-premiumdetails',
