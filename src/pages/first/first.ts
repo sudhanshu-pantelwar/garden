@@ -32,11 +32,32 @@ export class FirstPage {
   ionViewDidLoad(){
     console.log(this.adCount);
     this.misc.startLoading();
-    this.contentfulProvider.getTitle().then((val) => { 
-      this.pushContent = val;
-      this.title = val.title;
-      var markContent = val.content.slice(0,140);
-      this.imageURL = 'https:'+ val.image.fields.file.url;
+    // this.contentfulProvider.getTitle().then((val) => { 
+    //   this.pushContent = val;
+    //   this.title = val.title;
+    //   var markContent = val.content.slice(0,140);
+    //   this.imageURL = 'https:'+ val.image.fields.file.url;
+    //   this.misc.closeLoading();
+    //   var converter = new showdown.Converter();
+    //   let htmlContent  = converter.makeHtml(markContent);
+    //   var postProcess = function(text) {
+    //       return text.replace(/<img\s+[^>]*src="([^"]*)"[^>]*>/g, '<img src='+'"https:'+'$1">');
+    //   }
+
+    //   this.content = postProcess(htmlContent);
+    //   // console.log(this.imageURL);
+    //   }).catch((err) => {
+    //     alert(err);
+    //     this.misc.loading();
+    //   });
+    
+    this.contentfulProvider.getContent().then((val) => {
+      let val1: any;
+      val1 = val;
+      this.pushContent = val1;
+      this.title = val1.title;
+      var markContent = val1.content.slice(0,140);
+      this.imageURL = 'https:'+ val1.image.fields.file.url;
       this.misc.closeLoading();
       var converter = new showdown.Converter();
       let htmlContent  = converter.makeHtml(markContent);
@@ -50,7 +71,11 @@ export class FirstPage {
         alert(err);
         this.misc.loading();
       });
+
     this.localNotifications.on('click', (success)=>{
+        let dayCount;
+        dayCount = localStorage.getItem('daycount');
+        this.localNotifications.cancel(dayCount);
         this.adCount = localStorage.getItem('adcount');
         this.adCount = parseInt(this.adCount);
         console.log(this.adCount);

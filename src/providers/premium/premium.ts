@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-
+import { contentfulConfig } from '../../settings/settings.config';
 declare var contentful;
 /*
   Generated class for the ContentfulProvider provider.
@@ -16,8 +16,8 @@ export class PremiumProvider {
   constructor(public http: Http) {
     console.log('Hello ContentfulProvider Provider');
     this.client = contentful.createClient({
-        space: 'unqhcgs40ecf',
-        accessToken: '831da18e7aa8aaac0c17e48b76be7392453f09c73e87cbaf3bd19ea52f9e324a'
+        space: contentfulConfig.space,
+        accessToken: contentfulConfig.accessToken
     });
     
     
@@ -31,7 +31,7 @@ export class PremiumProvider {
         // alert("dayField "+dayField);
         console.log("premiumentry 1",entry);
         try {
-          if(entry.fields.category.fields.title == 'Garden' && entry.fields.title == 'Upgrade To Premium'){
+          if(entry.fields.category.fields.title == contentfulConfig.category && entry.fields.title == 'Upgrade To Premium'){
             console.log(entry);
             PremiumProvider.data = entry.fields;
             console.log("sud", entry.fields.title);

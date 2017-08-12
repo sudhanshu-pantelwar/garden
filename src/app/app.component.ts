@@ -7,6 +7,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { OneSignal } from '@ionic-native/onesignal';
 import { ContentfulProvider } from '../providers/contentful/contentful';
 import * as moment from 'moment';
+import { dayDelay } from '../settings/settings.notification';
 
 @Component({
   templateUrl: 'app.html'
@@ -14,6 +15,7 @@ import * as moment from 'moment';
 export class MyApp {
   rootPage:any = 'welcome';
   time: any;
+  day: any;
   constructor(public contentfulProvider: ContentfulProvider, private oneSignal: OneSignal, private localNotifications: LocalNotifications, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
         
@@ -28,20 +30,12 @@ export class MyApp {
         // });
       
       
-      this.time = localStorage.getItem('time');
-        if(this.time == 'NaN' || this.time == '' || this.time == 'undefined' || this.time == null || this.time=='null'){
-          this.time = moment().format('YYYYMMDD,hh:mma');
-          
-          let res = this.time.split(",");
-          console.log("day", res[0], "time", res[1]);
-          localStorage.setItem('day', res[0]);
-          localStorage.setItem('time', res[1]);
+      this.day = localStorage.getItem('daycount');
+        if(this.day == 'NaN' || this.day == '' || this.day == 'undefined' || this.day == null || this.day =='null' || typeof(this.day) == 'undefined'){
           localStorage.setItem('daycount', '1');
           this.scheduleNotification();
         } 
         
-      
-      let day = localStorage.getItem('dayCount');
       
       this.localNotifications.on("trigger", nofication => {
         var dayCount = localStorage.getItem('daycount');
@@ -65,16 +59,25 @@ export class MyApp {
 
   updateNotification(){
     var dayCount = localStorage.getItem('daycount');
-    this.contentfulProvider.getNotificationContent(dayCount).then((val) => { 
+    let dayCount1 = parseInt(dayCount);
+    dayCount1 = dayCount1 + 1;
+    let dayCount2 = dayCount1.toString();
+    this.contentfulProvider.getNotificationContent(dayCount2).then((val) => { 
             
             var me = val;
+
+            // to make 24 hours delay = dayDelay(1)
+            // let dataDate = dayDelay(1);
+
+            // to make 
+            let dataDate = dayDelay();
+            let newDate = dataDate.scheduledDate;
+            let everyTime = dataDate.every;
+
             this.localNotifications.update({
                 id:1,
                 title: me.title,
-                text: me.content,
-                firstAt: new Date(new Date().getTime() + 6 * 50000),
-                at: new Date(new Date().getTime() + 6 * 50000),
-                every: 'hour'
+                text: me.content
                 // icon: 'file://icon.png',
                 // smallIcon: 'http://www.concordmonitor.com/App_Themes/nne-universal-structure/socialicons/youtubeicon-color.png'
             });
@@ -94,23 +97,31 @@ export class MyApp {
     var dayCount = localStorage.getItem('daycount');
     let dayCount1 = parseInt(dayCount);
     dayCount1 = dayCount1 + 1;
-    let dayCount2 = dayCount1.toString();
-    var date  = new Date();
-    date.setDate(date.getDate() + 1);
+    
+    let dayCount2;
+    dayCount2 = dayCount1.toString();
     this.contentfulProvider.getNotificationContent(dayCount2).then((val) => { 
             
             var me = val;
+
+            // to make 24 hours delay = dayDelay(1)
+            // let dataDate = dayDelay(1);
+
+            // to make 
+            let dataDate = dayDelay();
+            let newDate = dataDate.scheduledDate;
+            let everyTime = dataDate.every;
             this.localNotifications.schedule({
-                id:1,
+                id: dayCount2,
                 title: me.title,
                 text: me.content,
-                firstAt: date,
-                at: date,
-                every: 'day'
+                // firstAt: newDate,
+                at: newDate,
+                // every: everyTime
                 // icon: 'file://icon.png',
                 // smallIcon: 'http://www.concordmonitor.com/App_Themes/nne-universal-structure/socialicons/youtubeicon-color.png'
             });
-            });
+          });
   }
 }
 

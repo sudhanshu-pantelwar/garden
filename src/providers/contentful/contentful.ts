@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-
+import { contentfulConfig } from '../../settings/settings.config';
 declare var contentful;
 /*
   Generated class for the ContentfulProvider provider.
@@ -17,8 +17,8 @@ export class ContentfulProvider {
   constructor(public http: Http) {
     console.log('Hello ContentfulProvider Provider');
     this.client = contentful.createClient({
-        space: 'unqhcgs40ecf',
-        accessToken: '831da18e7aa8aaac0c17e48b76be7392453f09c73e87cbaf3bd19ea52f9e324a'
+        space: contentfulConfig.space,
+        accessToken: contentfulConfig.accessToken
     });
     
     
@@ -41,6 +41,25 @@ export class ContentfulProvider {
       return ContentfulProvider.data;
     })
     // console.log(ContentfulProvider.title);
+  }
+
+  getContent(){
+    
+    var promise = new Promise((resolve, reject) => {
+      this.client.getEntries().then(entries => {
+      // log the title for all the entries that have it
+      entries.items.forEach(function (entry) {
+        let dayField = localStorage.getItem('daycount');
+        // alert("dayField "+dayField);
+        console.log(entry);
+        if(entry.fields.day == dayField){
+          ContentfulProvider.data = entry.fields;
+          resolve(ContentfulProvider.data);
+        }
+      })
+    })
+    })
+    return promise;
   }
 
   getNotificationContent(day){
@@ -71,7 +90,7 @@ export class ContentfulProvider {
         // alert("dayField "+dayField);
         console.log("premiumentry 1",entry);
         try {
-          if(entry.fields.category[0].fields.title == 'Garden' && entry.fields.day){
+          if(entry.fields.category[0].fields.title == contentfulConfig.category && entry.fields.day){
             ContentfulProvider.premiumArray.push(entry.fields);
           }
 
