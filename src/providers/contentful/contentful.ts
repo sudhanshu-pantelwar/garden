@@ -3,6 +3,8 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { contentfulConfig } from '../../settings/settings.config';
 declare var contentful;
+import { Storage } from '@ionic/storage';
+
 /*
   Generated class for the ContentfulProvider provider.
 
@@ -14,7 +16,7 @@ export class ContentfulProvider {
   client: any;
   static data: any;
   static premiumArray: any=[];
-  constructor(public http: Http) {
+  constructor(public http: Http, private storage: Storage) {
     console.log('Hello ContentfulProvider Provider');
     this.client = contentful.createClient({
         space: contentfulConfig.space,
@@ -27,16 +29,22 @@ export class ContentfulProvider {
   getTitle(){
     return this.client.getEntries()
     .then(entries => {
+      var me = this;
       // log the title for all the entries that have it
       entries.items.forEach(function (entry) {
-        let dayField = localStorage.getItem('daycount');
-        // alert("dayField "+dayField);
-        console.log(entry);
-        if(entry.fields.day == dayField){
+        // let dayField = localStorage.getItem('daycount');
+        me.storage.get('daycount').then((value) => {
           console.log(entry);
-          ContentfulProvider.data = entry.fields;
-          console.log(entry.fields.title);
-        }
+          let dayField;
+          dayField = value;
+          if(entry.fields.day == dayField){
+            console.log(entry);
+            ContentfulProvider.data = entry.fields;
+            console.log(entry.fields.title);
+          } 
+        })
+        // alert("dayField "+dayField);
+        
       })
       return ContentfulProvider.data;
     })
@@ -48,14 +56,20 @@ export class ContentfulProvider {
     var promise = new Promise((resolve, reject) => {
       this.client.getEntries().then(entries => {
       // log the title for all the entries that have it
+      var me = this;
       entries.items.forEach(function (entry) {
-        let dayField = localStorage.getItem('daycount');
-        // alert("dayField "+dayField);
-        console.log(entry);
-        if(entry.fields.day == dayField){
-          ContentfulProvider.data = entry.fields;
-          resolve(ContentfulProvider.data);
-        }
+        // let dayField = localStorage.getItem('daycount');
+        me.storage.get('daycount').then((value) => {
+          // console.log(entry);
+          let dayField;
+          dayField = value;
+          if(entry.fields.day == dayField){
+            console.log(entry);
+            console.log(entry.fields.title);
+            resolve(entry.fields);
+            
+          } 
+        })
       })
     })
     })

@@ -16,6 +16,7 @@ import { PremiumProvider } from '../providers/premium/premium';
 import { MiscProvider } from '../providers/misc/misc';
 import { ModalPage } from '../pages/modal/modal';
 import {ElasticHeaderDirectiveModule} from '../directives/elastic-header/elastic-header.module';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {ElasticHeaderDirectiveModule} from '../directives/elastic-header/elastic
     ElasticHeaderDirectiveModule,
     HttpModule,
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

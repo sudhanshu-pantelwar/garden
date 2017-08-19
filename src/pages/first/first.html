@@ -8,8 +8,12 @@
 </ion-header>-->
 
 <ion-content>
-  <img src={{imageURL}} alt="Floating Flower"/>
-  <h1 class="heading">{{title}}</h1>
-  <div [innerHTML]="content" class="content" padding><p>...</p></div>
-  <button class="btn" (click)="readMore()">Read More</button>
+  <div *ngIf="title">
+    <img src={{imageURL}} alt="Floating Flower"/>
+    <h1 class="heading">{{title}}</h1>
+    <div [innerHTML]="content" class="content" padding><p>...</p></div>
+    <button class="btn" (click)="readMore()">Read More</button>
+
+  </div>
+  
 </ion-content>

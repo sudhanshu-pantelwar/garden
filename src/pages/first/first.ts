@@ -5,6 +5,7 @@ import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig } from '@
 import { ContentfulProvider } from '../../providers/contentful/contentful';
 import { MiscProvider } from '../../providers/misc/misc';
 import { markdown } from 'markdown';
+import { Storage } from '@ionic/storage';
 
 declare var showdown;
 /**
@@ -26,12 +27,18 @@ export class FirstPage {
   imageURL: any;
   adCount: any;
   pushContent: any;
-  constructor(public misc: MiscProvider, public contentfulProvider: ContentfulProvider, private admobFree: AdMobFree, private localNotifications: LocalNotifications, public navCtrl: NavController) {
+  flag: any;
+  constructor(public misc: MiscProvider, 
+              public contentfulProvider: ContentfulProvider, 
+              private admobFree: AdMobFree, 
+              private localNotifications: LocalNotifications, 
+              public navCtrl: NavController,
+              private storage: Storage) {
   }
 
   ionViewDidLoad(){
     console.log(this.adCount);
-    this.misc.startLoading();
+    
     // this.contentfulProvider.getTitle().then((val) => { 
     //   this.pushContent = val;
     //   this.title = val.title;
@@ -51,36 +58,29 @@ export class FirstPage {
     //     this.misc.loading();
     //   });
     
-    this.contentfulProvider.getContent().then((val) => {
-      let val1: any;
-      val1 = val;
-      this.pushContent = val1;
-      this.title = val1.title;
-      var markContent = val1.content.slice(0,140);
-      this.imageURL = 'https:'+ val1.image.fields.file.url;
-      this.misc.closeLoading();
-      var converter = new showdown.Converter();
-      let htmlContent  = converter.makeHtml(markContent);
-      var postProcess = function(text) {
-          return text.replace(/<img\s+[^>]*src="([^"]*)"[^>]*>/g, '<img src='+'"https:'+'$1">');
-      }
-
-      this.content = postProcess(htmlContent);
-      // console.log(this.imageURL);
-      }).catch((err) => {
-        alert(err);
-        this.misc.loading();
-      });
+    
+    this.data();
 
     this.localNotifications.on('click', (success)=>{
+        var me1 = this;
+        setTimeout(function() {
+          me1.refreshdata();
+        }, 2000); 
         let dayCount;
-        dayCount = localStorage.getItem('daycount');
-        this.localNotifications.cancel(dayCount);
-        this.adCount = localStorage.getItem('adcount');
-        this.adCount = parseInt(this.adCount);
+
+        this.storage.get('daycount').then((value) => {
+          dayCount = value;
+          this.localNotifications.cancel(dayCount);
+        })
+        
+        // this.adCount = localStorage.getItem('adcount');
+        this.storage.get('adcount').then((value) => {
+          this.adCount = value;
+          this.adCount = parseInt(this.adCount);
         console.log(this.adCount);
         if(this.adCount == 2){
-          localStorage.setItem('adcount', '0');
+          // localStorage.setItem('adcount', '0');
+          this.storage.set('adcount', '0');
           this.adCount = 0;
           const interstitialConfig: AdMobFreeInterstitialConfig = {
             isTesting: true,
@@ -99,8 +99,11 @@ export class FirstPage {
         } else {
           this.adCount = this.adCount + 1;
           this.adCount = this.adCount.toString();
-          localStorage.setItem('adcount', this.adCount);
+          this.storage.set('adcount', this.adCount);
+          // localStorage.setItem('adcount', this.adCount);
         }
+        })
+        
         
         
         // alert("success");
@@ -124,7 +127,58 @@ export class FirstPage {
       });
   }
 
-  
+  data(){
+    this.misc.startLoading();
+    this.contentfulProvider.getContent().then((val) => {
+      let val1: any;
+      val1 = val;
+      this.pushContent = val1;
+      this.title = val1.title;
+      var markContent = val1.content.slice(0,140);
+      this.imageURL = 'https:'+ val1.image.fields.file.url;
+      
+      var converter = new showdown.Converter();
+      let htmlContent  = converter.makeHtml(markContent);
+      var postProcess = function(text) {
+          return text.replace(/<img\s+[^>]*src="([^"]*)"[^>]*>/g, '<img src='+'"https:'+'$1">');
+      }
+
+      this.content = postProcess(htmlContent);
+      this.misc.closeLoading();
+    
+      // console.log(this.imageURL);
+      }).catch((err) => {
+        alert(err);
+        this.misc.closeLoading();
+      });
+  }
+
+  refreshdata(){
+    this.misc.startLoading();
+    this.contentfulProvider.getContent().then((val) => {
+      let val1: any;
+      val1 = val;
+      this.pushContent = val1;
+      this.title = val1.title;
+      var markContent = val1.content.slice(0,140);
+      this.imageURL = 'https:'+ val1.image.fields.file.url;
+      
+      var converter = new showdown.Converter();
+      let htmlContent  = converter.makeHtml(markContent);
+      var postProcess = function(text) {
+          return text.replace(/<img\s+[^>]*src="([^"]*)"[^>]*>/g, '<img src='+'"https:'+'$1">');
+      }
+
+      this.content = postProcess(htmlContent);
+      this.misc.closeLoading();
+    
+      // console.log(this.imageURL);
+      }).catch((err) => {
+        alert(err);
+        this.misc.closeLoading();
+      });
+  }
+
   readMore(){
     this.navCtrl.push('Readmore', {'content': this.pushContent});
     this.misc.startLoading();
