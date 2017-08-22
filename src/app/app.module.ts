@@ -17,6 +17,7 @@ import { MiscProvider } from '../providers/misc/misc';
 import { ModalPage } from '../pages/modal/modal';
 import {ElasticHeaderDirectiveModule} from '../directives/elastic-header/elastic-header.module';
 import { IonicStorageModule } from '@ionic/storage';
+// import { Diagnostic } from '@ionic-native/diagnostic';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { IonicStorageModule } from '@ionic/storage';
     ContentfulProvider,
     PremiumProvider,
     MiscProvider
+    // Diagnostic
   ]
 })
 export class AppModule {}

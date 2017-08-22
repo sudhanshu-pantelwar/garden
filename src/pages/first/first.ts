@@ -57,8 +57,10 @@ export class FirstPage {
     //     alert(err);
     //     this.misc.loading();
     //   });
-    
-    
+    this.storage.get('daycount').then((value) => {
+          alert(value);
+          alert(this.storage.driver);
+        })
     this.data();
 
     this.localNotifications.on('click', (success)=>{
@@ -72,6 +74,8 @@ export class FirstPage {
           dayCount = value;
           this.localNotifications.cancel(dayCount);
         })
+
+    
         
         // this.adCount = localStorage.getItem('adcount');
         this.storage.get('adcount').then((value) => {

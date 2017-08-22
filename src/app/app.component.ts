@@ -9,12 +9,13 @@ import { ContentfulProvider } from '../providers/contentful/contentful';
 import * as moment from 'moment';
 import { dayDelay } from '../settings/settings.notification';
 import { Storage } from '@ionic/storage';
+// import { Diagnostic } from '@ionic-native/diagnostic';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = 'welcome';
+  rootPage:any;
   time: any;
   day: any;
   constructor(public contentfulProvider: ContentfulProvider, 
@@ -36,18 +37,26 @@ export class MyApp {
         //     // smallIcon: 'http://www.concordmonitor.com/App_Themes/nne-universal-structure/socialicons/youtubeicon-color.png'
         // });
       
-      
+      // this.diagnostic.requestExternalStorageAuthorization().then(()=>{
+      //   //User gave permission 
+      //   console.log('done');
+      //   }).catch(error=>{
+      //   //Handle error
+      //   console.log('error');
+      //   });
       // this.day = localStorage.getItem('daycount');
       this.storage.get('daycount').then((value) => {
         this.day = value;
         if(this.day == 'NaN' || this.day == '' || this.day == 'undefined' || this.day == null || this.day =='null' || typeof(this.day) == 'undefined'){
           this.storage.set('daycount', '1').then(()=> {
             this.scheduleNotification();
-          });
+          })
           // localStorage.setItem('daycount', '1');
           
         } 
-      })
+      }).then(() => {
+            this.rootPage = 'welcome';
+          });
         
         
       
@@ -59,6 +68,7 @@ export class MyApp {
           let dayCount1 = parseInt(dayCount);
           dayCount1 = dayCount1 + 1;
           let dayCount2 = dayCount1.toString();
+          console.log("dfadsfasdfadsfasdfasdfadsfadsfasdfasd", dayCount2);
           // localStorage.setItem('daycount', dayCount2);
           this.storage.set('daycount', dayCount2).then(()=>{
             this.scheduleNotification();
